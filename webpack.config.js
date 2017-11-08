@@ -1,8 +1,8 @@
 module.exports = {
   entry: [
-    'webpack-dev-server/client?http://localhost:8080',
+    // 'webpack-dev-server/client?http://localhost:8081',
     'webpack/hot/only-dev-server',
-    './src/index.js'
+    './client/src/index.js'
   ],
   module: {
     loaders: [{
@@ -15,12 +15,17 @@ module.exports = {
     extensions: ['*', '.js', '.jsx']
   },
   output: {
-    path: __dirname + '/dist',
+    path: __dirname + 'client/dist',
     publicPath: '/',
     filename: 'bundle.js'
   },
   devServer: {
-    contentBase: './dist',
-    hot: true
+    contentBase: './client/dist',
+    hot: true,
+    proxy: {
+      '/data': {
+        target: 'http://localhost:8081'
+      }
+    }
   }
 };
