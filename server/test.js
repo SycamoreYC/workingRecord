@@ -66,7 +66,7 @@ con.connect(function(err) {
   // var sql = "INSERT INTO users (name, favorite_product) VALUES ?";
   // var sql = "CREATE TABLE products (id INT(10), name VARCHAR(255))";
   // var sql = "INSERT INTO products (id, name) VALUES ?"
-  var sql = "SELECT users.name AS name, products.name AS favorite FROM users RIGHT JOIN products ON users.favorite_product = products.id";
+  var sql = "SELECT users.name AS name, products.name AS favorite FROM users RIGH JOIN products ON users.favorite_product = products.id";
   con.query(sql, [values], function(err, result, fields) {
     if (err) throw err;
     console.log(result);

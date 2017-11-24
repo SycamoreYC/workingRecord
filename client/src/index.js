@@ -6,7 +6,7 @@ import MoveCursor from './MoveCursor';
 
 const Home = () =>
   <div>
-    <h2>Welcome to my silly working record </h2>
+    <h2 className="csse62d4018e1aff5">Welcome to my silly working record </h2>
   </div>
 const BasicExample = () => (
   <Router style={{height: '100%'}}>
