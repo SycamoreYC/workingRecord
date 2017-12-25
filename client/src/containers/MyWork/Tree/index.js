@@ -12,13 +12,10 @@ export default class Tree extends React.Component {
 			return;
 		}
 		const nodeList =  data.map((node, index) => {
-			const selectedNodes = this.findSelectedNodes(node);
-
 			if (node.children) {
 				this.rendTree(node.children);
 			}
 			return <TreeNode
-				selectedNodes={() => selectedNodes}
 				key={index}
 				item={node}
 				leafNode={data.length === 0}/>
@@ -26,12 +23,6 @@ export default class Tree extends React.Component {
 		return (
 			<ul style={{ listStyle: 'none' }}>{nodeList}</ul>
 		);
-	}
-
-	findSelectedNodes(node) {
-		const selectedData = treeStore.selectedData;
-		if (!selectedData) return;
-		return selectedData.find(item => item.id === node.id);
 	}
 
 	render() {
