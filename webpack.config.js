@@ -3,7 +3,7 @@ module.exports = {
   entry: [
     // 'webpack-dev-server/client?http://localhost:8081',
     'webpack/hot/only-dev-server',
-    './client/src/containers/index.js.js'
+    './client/src/containers/index.js'
   ],
   module: {
     rules: [
