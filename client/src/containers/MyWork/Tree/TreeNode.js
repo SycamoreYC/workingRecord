@@ -8,13 +8,33 @@ export default class TreeNode extends React.Component {
 
 	@observable expand = true;
 
-	onSelect = (item) => () => {
-		console.log(123);
-		console.log(item);
-		// console.log(selectedNodes);
+	onSelect = (item, selectedNodes, parentItem) => () => {
+		let selectedIndex = null;
+		if (selectedNodes) {
+			selectedIndex = selectedNodes.children.findIndex(node => node.id === item.id);
+			if (selectedIndex > -1) {
+				selectedNodes.children.splice(selectedIndex, 1);
+				if (selectedNodes.children.length === 0) {
+					this.props.onSelect(item, selectedNodes);
+				}
+			}
+			if (selectedIndex === -1) {
+				selectedNodes.children.push(item);
+			}
+		} else {
+			const selectedParentNode = {
+				id: parentItem.id,
+				content: parentItem.content,
+				children: []
+			};
+			selectedParentNode.children.push(item);
+			selectedNodes = selectedParentNode;
+			// console.log(selectedNodes);
+			// this.props.onSelect()
+		}
 	};
 
-	rendItem(item) {
+	rendItem(item, selectedNodes) {
 		const children = item.children;
 
 		if (children.length === 0) return;
@@ -24,14 +44,12 @@ export default class TreeNode extends React.Component {
 				<ul style={{ listStyle: 'none' }}>
 					{children.map((node, index) => {
 						const selectedData = this.findSelectedNodes(node);
-						console.log(selectedData);
-
 						return <TreeNode
 							selectedNodes={selectedData}
 							item={node}
 							key={index}
 							leafNode={node.children.length === 0}
-							onSelect={this.onSelect(selectedData)} />
+							onSelect={this.onSelect(node, selectedNodes, item)} />
 					})}
 				</ul>
 			)
@@ -46,7 +64,7 @@ export default class TreeNode extends React.Component {
 
 	handleLeafNodeClick = (leafNode) => () => {
 		if (leafNode) {
-			this.props.onSelect(leafNode);
+			this.props.onSelect();
 		}
 	};
 
@@ -76,7 +94,7 @@ export default class TreeNode extends React.Component {
 					<ItemIcon item={item} expand={this.expand} leafNode={leafNode} onClick={this.handleIconClick} />
 					{item.content}
 				</div>
-				<div style={{ display: this.expand ? 'block' : 'none' }} >{this.rendItem(item)}</div>
+				<div style={{ display: this.expand ? 'block' : 'none' }} >{this.rendItem(item, selectedNodes)}</div>
 			</li>
 		)
 	}

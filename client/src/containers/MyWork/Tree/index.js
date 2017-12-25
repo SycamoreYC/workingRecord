@@ -7,6 +7,14 @@ import treeStore from './store';
 @observer
 export default class Tree extends React.Component {
 
+	onSelect = (item, selectedNodes) => () => {
+		const selectedIndex = selectedNodes.findIndex(node => node.id === item.id);
+		if (selectedIndex > -1) {
+			selectedNodes.splice(selectedIndex, 1);
+		}
+	}
+	;
+
 	rendTree(data) {
 		if (data.length === 0) {
 			return;
@@ -19,6 +27,7 @@ export default class Tree extends React.Component {
 			}
 			return <TreeNode
 				selectedNodes={() => selectedNodes}
+				onSelect={this.onSelect(node, treeStore.selectedData)}
 				key={index}
 				item={node}
 				leafNode={data.length === 0}/>

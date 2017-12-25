@@ -145,7 +145,7 @@ class treeStore {
 								},
 								{
 									id: '1.1.2.2',
-									content: '节点1.1.1.2',
+									content: '节点1.1.2.2',
 									children: []
 								}
 							]
