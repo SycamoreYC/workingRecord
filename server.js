@@ -1,6 +1,7 @@
 var express = require('express');
 var path = require('path');
 var ejs = require('ejs');
+var db = require('./server/db');
 
 var app = express();
 
@@ -20,11 +21,24 @@ app.engine('html', ejs.renderFile);
 
 app.use('/client/dist', express.static(path.join(__dirname, 'client/dist')));
 
-var server = app.listen(8081, function () {
+db.connect(function(err) {
+  if (err) {
+		console.log('Unable to connect to MySql.');
+	} else {
+    var server = app.listen(8081, function() {
+			var host = server.address().address;
+			var port = server.address().port;
 
-  var host = server.address().address
-  var port = server.address().port
-  
-  console.log("应用实例，访问地址为 http://%s:%s", host, port)
+			console.log("应用实例，访问地址为 http://%s:%s", host, port)
+    });
+  }
+});
 
-})
+// var server = app.listen(8081, function () {
+//
+//   var host = server.address().address
+//   var port = server.address().port
+//
+//   console.log("应用实例，访问地址为 http://%s:%s", host, port)
+//
+// })

@@ -38,7 +38,7 @@ module.exports = {
   },
   devServer: {
     contentBase: './client/dist',
-    port: 8000,
+    port: 8081,
     hot: true,
     proxy: {
       '/data': {

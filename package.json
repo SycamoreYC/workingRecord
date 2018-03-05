@@ -33,6 +33,7 @@
     "webpack-dev-server": "^2.4.1"
   },
   "dependencies": {
+    "async": "^2.6.0",
     "axios": "^0.17.0",
     "body-parser": "^1.18.2",
     "cookie-parser": "^1.4.3",
